@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FRAMEORY | Premium Photo Frames</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+:root{
+  --brown:#5a3e2b;
+  --light-brown:#8b5e3c;
+  --cream:#f5efe6;
+  --popup-bg:#d4b59a;
+  --popup-text:#3e2617;
+}
+body{background:var(--cream);color:#2c1c12;position:relative;}
+header{background:var(--brown);color:white;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;}
+header h1{letter-spacing:2px}
+header button{background:var(--light-brown);border:none;color:white;padding:10px 22px;border-radius:25px;cursor:pointer;}
+.hero{height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(120deg,#6b4226,#3e2617);color:white;}
+.hero h2{font-size:3rem}
+.hero p{margin:15px 0;color:#f0e6dc}
+.hero a{background:#d4b59a;color:#3e2617;padding:14px 32px;border-radius:30px;text-decoration:none;font-weight:500;}
+.products{padding:70px 50px;display:grid;gap:35px;grid-template-columns:repeat(5,1fr);}
+@media(max-width:1024px){.products{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:600px){.products{grid-template-columns:repeat(2,1fr);padding:40px 20px;}}
+.card{background:white;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.12);transition:transform 0.3s ease, box-shadow 0.3s ease;display:flex;flex-direction:column;width:100%;aspect-ratio:2/3;padding:15px;}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.18);}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:15px;margin-bottom:15px;}
+.card h3{margin:0 0 5px 0;padding:0 5px;}
+.card p{margin:0 0 10px 0;padding:0 5px;}
+.card button{margin-top:auto;padding:12px;border:none;border-radius:25px;background:var(--brown);color:white;cursor:pointer;margin:0 5px 5px 5px;}
+.card button:hover{background:var(--light-brown);}
+.cart{margin:40px;padding:40px;background:white;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.15);}
+.cart h2{margin-bottom:20px}
+.cart-item{display:flex;justify-content:space-between;margin-bottom:10px;}
+.cart input{margin-top:15px;padding:10px;width:220px;}
+.cart button{margin-left:10px;padding:10px 22px;background:var(--brown);color:white;border:none;border-radius:20px;cursor:pointer;}
+.total{margin-top:15px;font-size:1.3rem;font-weight:600;}
+footer{background:var(--brown);color:#e8dccc;text-align:center;padding:25px;}
+#popup{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-50px);background:var(--popup-bg);color:var(--popup-text);padding:15px 30px;border-radius:20px;box-shadow:0 5px 20px rgba(0,0,0,0.2);opacity:0;pointer-events:none;transition:transform 0.5s ease, opacity 0.5s ease;font-weight:500;z-index:9999;}
+#popup.show{transform:translateX(-50%) translateY(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>FRAMEORY</h1>
+  <button onclick="scrollToCart()">Cart 🛒</button>
+</header>
+
+<section class="hero">
+  <h2>Frame Your Moments Beautifully</h2>
+  <p>Elegant handcrafted photo frames for timeless memories</p>
+  <a href="#shop">Explore Collection</a>
+</section>
+
+<section class="products" id="shop">
+
+  <div class="card">
+    <img src="https://i.postimg.cc/abcdefg/frame1.jpg" alt="Classic Wooden Frame">
+    <h3>Classic Wooden Frame</h3>
+    <p>₹400</p>
+    <button onclick="addToCart('Classic Wooden Frame',400)">Add to Cart</button>
+    <button onclick="buyNow('Classic Wooden Frame',400)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/abcdefg/frame2.jpg" alt="Dark Walnut Frame">
+    <h3>Dark Walnut Frame</h3>
+    <p>₹550</p>
+    <button onclick="addToCart('Dark Walnut Frame',550)">Add to Cart</button>
+    <button onclick="buyNow('Dark Walnut Frame',550)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/abcdefg/frame3.jpg" alt="Luxury Vintage Frame">
+    <h3>Luxury Vintage Frame</h3>
+    <p>₹750</p>
+    <button onclick="addToCart('Luxury Vintage Frame',750)">Add to Cart</button>
+    <button onclick="buyNow('Luxury Vintage Frame',750)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/abcdefg/frame4.jpg" alt="Modern Minimal Frame">
+    <h3>Modern Minimal Frame</h3>
+    <p>₹500</p>
+    <button onclick="addToCart('Modern Minimal Frame',500)">Add to Cart</button>
+    <button onclick="buyNow('Modern Minimal Frame',500)">Buy Now</button>
+  </div>
+
+  <div class="card">
+    <img src="https://i.postimg.cc/abcdefg/frame5.jpg" alt="Antique Gold Frame">
+    <h3>Antique Gold Frame</h3>
+    <p>₹850</p>
+    <button onclick="addToCart('Antique Gold Frame',850)">Add to Cart</button>
+    <button onclick="buyNow('Antique Gold Frame',850)">Buy Now</button>
+  </div>
+
+</section>
+
+<section class="cart" id="cart">
+  <h2>Your Cart</h2>
+  <div id="cartItems"></div>
+
+  <input type="text" id="coupon" placeholder="Coupon Code (FRAMEORY10)">
+  <button onclick="applyCoupon()">Apply</button>
+
+  <p class="total">Total: ₹<span id="total">0</span></p>
+</section>
+
+<div id="popup">Coupon Applied! 🎉</div>
+
+<footer>
+  © 2026 FRAMEORY — Crafted With Elegance 🤎
+</footer>
+
+<script>
+let cart=[];
+let total=0;
+let discountUsed=false;
+
+function addToCart(name,price){
+  cart.push({name,price});
+  total+=price;
+  renderCart();
+}
+
+function renderCart(){
+  const cartBox=document.getElementById("cartItems");
+  cartBox.innerHTML="";
+  cart.forEach(item=>{
+    cartBox.innerHTML+=`
+      <div class="cart-item">
+        <span>${item.name}</span>
+        <span>₹${item.price}</span>
+      </div>
+    `;
+  });
+  document.getElementById("total").innerText=total.toFixed(2);
+}
+
+function showPopup(message){
+  const popup = document.getElementById("popup");
+  popup.textContent = message;
+  popup.classList.add("show");
+  setTimeout(()=> popup.classList.remove("show"),2000);
+}
+
+function applyCoupon(){
+  const code=document.getElementById("coupon").value.trim();
+  if(code==="FRAMEORY10" && !discountUsed){
+    total*=0.9;
+    discountUsed=true;
+    renderCart();
+    showPopup("Coupon Applied! 🎉");
+  }else{
+    showPopup("Invalid or already used coupon ❌");
+  }
+}
+
+function scrollToCart(){
+  document.getElementById("cart").scrollIntoView({behavior:"smooth"});
+}
+
+// Razorpay Buy Now
+function buyNow(product, price){
+  var options = {
+    "key": "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay Key ID
+    "amount": price*100, // Amount in paise
+    "currency": "INR",
+    "name": "FRAMEORY",
+    "description": product,
+    "handler": function (response){
+      alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+    },
+    "theme": {
+      "color": "#5a3e2b"
+    }
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+</script>
+
+</body>
+</html>
+S
